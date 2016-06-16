@@ -26,7 +26,7 @@
     FHWebStackManager *manager = [[FHWebStackManager alloc] init];
     manager.webView = self.stackWebView;
     
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com"]];
+    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.163.com"]];
     [self.stackWebView loadRequest:urlRequest];
 }
 

@@ -100,19 +100,8 @@ static NSString * const kMycustomBlankUrl = @"about:blank";
 }
 
 #pragma mark - UIPanGestureRecognizer
-- (void)handlePanGesture:(UIPanGestureRecognizer *)pan
-{
-    //判断方向
-    CGPoint velocity = [pan velocityInView:self];
-    if (fabs(velocity.y) < fabs(velocity.x)) {
-        //处理手势
-        [self nextStepWithPanGesture:pan];
-    }
-    else
-        return;
-}
 
-- (void)nextStepWithPanGesture:(UIPanGestureRecognizer *)pan
+- (void)handlePanGesture:(UIPanGestureRecognizer *)pan
 {
     //判断是否有上级页面
     if (!self.stackManager.webStackArray.count) {
@@ -131,7 +120,7 @@ static NSString * const kMycustomBlankUrl = @"about:blank";
                 self.exclusiveTouch = NO;
             }
             break;
-            case UIGestureRecognizerStateEnded: case UIGestureRecognizerStateCancelled:{
+            case UIGestureRecognizerStateEnded: case UIGestureRecognizerStateCancelled: case UIGestureRecognizerStateFailed:{
                 [self handleCanceledOrEndedGestureWitPoint:[pan translationInView:self]];
             }
             break;
@@ -143,11 +132,13 @@ static NSString * const kMycustomBlankUrl = @"about:blank";
 - (void)prepareViewTransition
 {
     self.leftImageView.image = [self.stackManager headStack].webScreenShot;
-    [self.superview insertSubview:self.leftImageView belowSubview:self];
+    if (self.superview){
+        [self.superview insertSubview:self.leftImageView belowSubview:self];
+    }
 }
 
 - (void)handleViewTransitionWithCGPoint:(CGPoint )point{
-    if (point.x < 0)
+    if (point.x < 0 || point.x > self.frame.size.width)
     {
         return;
     }
@@ -167,6 +158,16 @@ static NSString * const kMycustomBlankUrl = @"about:blank";
         } completion:^(BOOL finished) {
             [weakSelf.stackManager popWebStack];
             weakSelf.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+            [weakSelf.leftImageView removeFromSuperview];
+            weakSelf.exclusiveTouch = YES;
+        }];
+    }else
+    {
+        [UIView animateWithDuration:kAnimationDuration animations:^{
+            //移回去
+            weakSelf.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+            
+        } completion:^(BOOL finished) {
             [weakSelf.leftImageView removeFromSuperview];
             weakSelf.exclusiveTouch = YES;
         }];
@@ -208,6 +209,7 @@ static NSString * const kMycustomBlankUrl = @"about:blank";
             }
             else{
                 //PushNewStack
+                
                 [self.stackManager pushNewWebStackWithRequest:request andImage:[self snapshot:self]];
                 return YES;
             }
@@ -216,6 +218,32 @@ static NSString * const kMycustomBlankUrl = @"about:blank";
     }
     return YES;
 }
+
+//- (BOOL)vaildRequest:(NSURLRequest *)request
+//{
+//    BOOL ret = YES;
+//    
+//    BOOL isFragmentJump = NO;
+//    if (request.URL.fragment) {
+//        NSString *nonFragmentURL = [request.URL.absoluteString stringByReplacingOccurrencesOfString:[@"#" stringByAppendingString:request.URL.fragment] withString:@""];
+//        NSLog(@"%@ 和%@",nonFragmentURL, self.request.URL.absoluteString);
+//        isFragmentJump = [nonFragmentURL isEqualToString:self.request.URL.absoluteString];
+//    }
+//    
+//    BOOL isTopLevelNavigation = [request.mainDocumentURL isEqual:request.URL];
+//    
+//    BOOL isHTTPOrFile = [request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"] || [request.URL.scheme isEqualToString:@"file"];
+//    if (ret && !isFragmentJump && isHTTPOrFile && isTopLevelNavigation) {
+//        if ([[self.request.URL description] length]) {
+//            ret = YES;
+//            }
+//        else
+//        {
+//            ret = NO;
+//        }
+//    }
+//    return ret;
+//}
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {

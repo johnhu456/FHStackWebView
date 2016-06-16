@@ -235,6 +235,7 @@
 				TargetAttributes = {
 					E0D5F9621D113E3A004485F7 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = H3MEX3W3VV;
 					};
 					E0D5F97B1D113E3B004485F7 = {
 						CreatedOnToolsVersion = 7.3;
@@ -445,10 +446,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FHStackWebViewDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MADAO.FHStackWebViewDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -456,10 +460,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FHStackWebViewDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MADAO.FHStackWebViewDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -528,6 +535,7 @@
 				E0D5F9921D113E3B004485F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E0D5F9931D113E3B004485F7 /* Build configuration list for PBXNativeTarget "FHStackWebViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +544,7 @@
 				E0D5F9951D113E3B004485F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E0D5F9961D113E3B004485F7 /* Build configuration list for PBXNativeTarget "FHStackWebViewDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +553,7 @@
 				E0D5F9981D113E3B004485F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

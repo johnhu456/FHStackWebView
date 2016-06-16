@@ -15,9 +15,9 @@
 
 @property (nonatomic, assign, readonly) CGPoint webContentOffset;
 
-@property (nonatomic, copy, readonly) NSURL *webURL;
+@property (nonatomic, copy, readonly) NSURLRequest *webURLRequest;
 
 - (instancetype)init __attribute__((unavailable("init方法不可用，请用initWithWebShot...")));
-- (instancetype)initWithWebShot:(UIImage *)screenShoot webURL:(NSURL *)url webContentOffset:(CGPoint)contentOffSet NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithWebShot:(UIImage *)screenShoot webURLRequest:(NSURLRequest *)request webContentOffset:(CGPoint)contentOffSet NS_DESIGNATED_INITIALIZER;
 
 @end

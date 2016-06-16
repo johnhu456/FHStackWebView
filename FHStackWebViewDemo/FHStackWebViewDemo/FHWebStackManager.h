@@ -19,10 +19,13 @@
 
 @property (nonatomic, strong, readonly) NSMutableArray *webStackArray;
 
-- (void)pushNewWebStackWithImage:(UIImage *)image;
+- (void)pushNewWebStackWithRequest:(NSURLRequest *)reqeust andImage:(UIImage *)image;
 
 - (FHWebStack *)popWebStack;
 
 - (void)cleanWebStack;
 
+- (FHWebStack *)headStack;
+
+- (CGPoint)secondStackContentoffSet;
 @end

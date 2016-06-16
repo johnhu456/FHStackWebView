@@ -24,15 +24,19 @@
     return _webStackArray;
 }
 
-- (void)pushNewWebStackWithImage:(UIImage *)image;
+- (void)pushNewWebStackWithRequest:(NSURLRequest *)reqeust andImage:(UIImage *)image;
 {
-    FHWebStack *newStack = [[FHWebStack alloc] initWithWebShot:image webURL:self.webView.request.URL webContentOffset:self.webView.scrollView.contentOffset];
-    [self.webStackArray insertObject:newStack atIndex:0];
+    FHWebStack *newStack = [[FHWebStack alloc] initWithWebShot:image webURLRequest:reqeust   webContentOffset:self.webView.scrollView.contentOffset];
+    [self.webStackArray addObject:newStack];
 }
 
 - (FHWebStack *)popWebStack
 {
-    return _webStackArray[0];
+    FHWebStack *popedStack = [_webStackArray lastObject];
+    [self.webView goBack];
+    [self.webView goBack];
+    [_webStackArray removeLastObject];
+    return popedStack;
 }
 
 - (void)cleanWebStack
@@ -40,4 +44,13 @@
     [self.webStackArray removeAllObjects];
 }
 
+- (FHWebStack *)headStack
+{
+    return [self.webStackArray lastObject];
+}
+
+- (CGPoint)secondStackContentoffSet{
+    FHWebStack *secondStack = [self.webStackArray objectAtIndex:self.webStackArray.count - 2];
+    return secondStack.webContentOffset;
+}
 @end

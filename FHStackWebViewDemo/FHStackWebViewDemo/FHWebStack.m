@@ -14,19 +14,23 @@
 
 @property (nonatomic, assign, readwrite) CGPoint webContentOffset;
 
-@property (nonatomic, copy, readwrite) NSURL *webURL;
+@property (nonatomic, copy, readwrite) NSURLRequest *webURLRequest;
 
 @end
 
 @implementation FHWebStack
 
-- (instancetype)initWithWebShot:(UIImage *)screenShoot webURL:(NSURL *)url webContentOffset:(CGPoint)contentOffSet{
+- (instancetype)initWithWebShot:(UIImage *)screenShoot webURLRequest:(NSURLRequest *)request webContentOffset:(CGPoint)contentOffSet{
     if (self = [super init]) {
         _webScreenShot = screenShoot;
-        _webURL = url;
+        _webURLRequest = request;
         _webContentOffset = contentOffSet;
     }
     return self;
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@  contentOffSet:%@",[[_webURLRequest URL] absoluteString], NSStringFromCGPoint(_webContentOffset)];
+}
 @end
